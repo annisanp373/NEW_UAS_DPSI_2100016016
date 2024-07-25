@@ -3,7 +3,9 @@
 const express = require('express');
 const serverless = require('serverless-http');
 const router = express.Router();
-const { sequelize } = require('../models/index'); // Import Sequelize instance dan model
+const { sequelize } = require('./models/index'); // Import Sequelize instance dan model
+
+
 
 // Middleware untuk parsing JSON
 router.use(express.json());
