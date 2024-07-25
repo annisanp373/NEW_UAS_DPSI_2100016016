@@ -1,14 +1,9 @@
-const { Sequelize } = require('sequelize');
+const { DataTypes } = require('sequelize');
+const sequelize = require('../database/db'); // Impor koneksi dari file konfigurasi
 
-// Konfigurasi koneksi Sequelize
-const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, process.env.DB_PASSWORD, {
-    host: process.env.DB_HOST,
-    dialect: 'mysql'
-});
-
-const User = require('./user')(sequelize);
-const Complaint = require('./complaint')(sequelize);
-const Response = require('./response')(sequelize);
+const User = require('./user')(sequelize, DataTypes);
+const Complaint = require('./complaint')(sequelize, DataTypes);
+const Response = require('./response')(sequelize, DataTypes);
 
 // Define associations
 Complaint.belongsTo(User, { foreignKey: 'studentId', as: 'student' });

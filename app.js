@@ -24,6 +24,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/uploads', express.static('uploads')); // Middleware untuk menyajikan file statis
 
+app.use(bodyParser.json()); 
+app.use(bodyParser.urlencoded({ extended: true })); 
+
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
 app.use('/complaints', complaintsRouter);
