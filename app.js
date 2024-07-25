@@ -4,7 +4,8 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const indexRouter = require('./routes/index');
+const indexRouter = require('./index');
+const sequelize = require('./models/index'); 
 const authRouter = require('./routes/auth');
 const complaintsRouter = require('./routes/complaints');
 const responsesRouter = require('./routes/responses');
@@ -27,6 +28,12 @@ app.use('/', indexRouter);
 app.use('/auth', authRouter);
 app.use('/complaints', complaintsRouter);
 app.use('/responses', responsesRouter);
+
+sequelize.sequelize.sync().then(() => {
+  console.log('Connection has been established successfully.');
+}).catch((error) => {
+  console.error('Unable to connect to the database:', error);
+});
 
 // Catch 404 and forward to error handler
 app.use(function (req, res, next) {
