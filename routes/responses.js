@@ -5,8 +5,8 @@ const { authenticate, authorize } = require('../middleware/auth');
 
 // Middleware untuk memastikan hanya pengguna dengan peran 'staff' yang dapat mengakses endpoint ini
 
-// Route untuk menanggapi pengaduan
-router.post('/:id', [authenticate, authorize(['staff'])], async (req, res) => {
+// Route untuk menanggapi/merespon pengaduan dari student oleh staff
+router.post('/:id', [authenticate, authorize(['staff'])], async (req, res) => {  //sesuaikan dengan id pengaduan 
     try {
         const complaint = await Complaint.findByPk(req.params.id);
         if (!complaint) {
