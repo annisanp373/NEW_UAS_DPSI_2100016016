@@ -3,7 +3,7 @@ const router = express.Router();
 const { Complaint, Response, User } = require('../models');
 const { authenticate } = require('../middleware/auth');
 
-// Mengirim Pengaduan
+// Middleware untuk memastikan hanya pengguna dengan peran 'staff' yang dapat mengakses endpoint ini
 router.post('/', authenticate, async (req, res) => {
     try {
         const complaint = await Complaint.create({
