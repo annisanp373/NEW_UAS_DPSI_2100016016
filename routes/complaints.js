@@ -4,6 +4,8 @@ const { Complaint, Response, User } = require('../models');
 const { authenticate } = require('../middleware/auth');
 
 // Middleware untuk memastikan hanya pengguna dengan peran 'student' yang dapat mengakses endpoint ini
+
+//route untuk membuat pengaduan 
 router.post('/', authenticate, async (req, res) => {
     try {
         // Menggunakan ID pengguna dari token JWT untuk mengaitkan pengaduan dengan pengguna yang membuatnya
