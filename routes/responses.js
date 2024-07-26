@@ -3,6 +3,8 @@ const router = express.Router();
 const { Complaint, Response, User } = require('../models');
 const { authenticate, authorize } = require('../middleware/auth');
 
+// Middleware untuk memastikan hanya pengguna dengan peran 'staff' yang dapat mengakses endpoint ini
+
 // Route untuk menanggapi pengaduan
 router.post('/:id', [authenticate, authorize(['staff'])], async (req, res) => {
     try {
@@ -22,13 +24,13 @@ router.post('/:id', [authenticate, authorize(['staff'])], async (req, res) => {
         });
 
         complaint.status = 'resolved';
-        complaint.staffId = req.user.id; // Pastikan staffId diperbarui di Complaint
+        complaint.staffId = req.user.id; //staffId diperbarui di Complaint
         await complaint.save();
 
         res.status(201).json(response);
     } catch (err) {
         console.error(err); // Log error ke console
-        res.status(500).json({ message: 'Server error', error: err.message }); // Sertakan pesan error di respons
+        res.status(500).json({ message: 'Server error', error: err.message }); 
     }
 });
 
@@ -46,7 +48,7 @@ router.get('/', [authenticate, authorize(['staff'])], async (req, res) => {
         res.json(complaints);
     } catch (err) {
         console.error(err); // Log error ke console
-        res.status(500).json({ message: 'Server error', error: err.message }); // Sertakan pesan error di respons
+        res.status(500).json({ message: 'Server error', error: err.message }); 
     }
 });
 
